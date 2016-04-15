@@ -50,7 +50,7 @@ Assembled gems can be found at
 http://dev.inversepath.com/download/serial_can_bus
 
 ```
-gem install serial_can_bus-0.2.gem
+gem install serial_can_bus-0.3.gem
 ```
 
 Requirements
@@ -71,7 +71,7 @@ Please report support and feature requests to <andrea@inversepath.com>
 License
 =======
 
-Copyright 2013 Andrea Barisani <andrea@inversepath.com>
+Copyright 2016 Andrea Barisani <andrea@inversepath.com>
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
