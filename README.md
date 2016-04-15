@@ -2,7 +2,7 @@ SerialCanBus
 ============
 
 SerialCanBus README
-Copyright 2013 Andrea Barisani <andrea@inversepath.com>
+Copyright 2016 Andrea Barisani <andrea@inversepath.com>
 
 A Ruby library for LAWICEL serial CAN bus adapters
 
