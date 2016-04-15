@@ -88,20 +88,15 @@ class SerialCanBus::Request
     # The BITRATE hash includes valid BTR0/BTR1 values, for the SJA1000 of the
     # CANUSB adapter, corresponding to each bitrate.
 
-    BITRATE = { 1000000 => 0x0014,
-                 800000 => 0x0016,
-                 500000 => 0x001c,
-                 250000 => 0x011c,
-                 125000 => 0x031c,
-                 100000 => 0x432f,
-                  95238 => 0xc34e,
-                  83333 => 0x852b,
-                  50000 => 0x472f,
-                  47619 => 0x1414,
-                  33333 => 0x8b2f,
-                  20000 => 0x532f,
-                  10000 => 0x672f,
-                   5000 => 0x7f7f }
+    BITRATE = { 1000000 => 0x4014,
+                 800000 => 0x4016,
+                 500000 => 0x401c,
+                 250000 => 0x411c,
+                 125000 => 0x431c,
+                 100000 => 0x441c,
+                  50000 => 0x491c,
+                  20000 => 0x581c,
+                  10000 => 0x711c }
 
     string :cmd, 1*8, 'command', :default => 's'
 
