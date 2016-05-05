@@ -21,17 +21,20 @@ Examples
 ========
 
 initialization:
+
 ```
   require 'serial_can_bus'
   slcan = SerialCanBus.new('/dev/ttyUSB0', 19200, 125000)
 ```
 
 transmission of standard CAN frame with identifier 0x7ff and 2 bytes of data:
+
 ```
   slcan.transmit_frame(:standard, 0x7ff, 2, 0xbeef)
 ```
 
 sniff first 20 frames:
+
 ```
   slcan.while_receiving(20) do |kind, identifier, length, data|
     puts "kind #{kind} identifier #{identifier.to_s(16)} data #{data.unpack('H*')}"
@@ -39,6 +42,7 @@ sniff first 20 frames:
 ```
 
 get adapter status:
+
 ```
   puts slcan.issue_command(:status_flag).dump
 ```
