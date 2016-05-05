@@ -180,7 +180,7 @@ class SerialCanBus
   #   kind       Symbol for the frame type
   #   length     frame length (0-8)
   #   identifier CAN identifier (11-bit for standard, 29-bit for extended)
-  #   data       frame data
+  #   data       frame data (e.g. 0x61616161, "aaaa")
   #
   # available frame kinds:
   #   :standard
@@ -191,7 +191,12 @@ class SerialCanBus
       raise 'invalid length (! 0-8)'
     end
 
-    data = frame_data.to_s(16).rjust(length * 2, '0')
+    case frame_data
+    when String
+      data = frame_data.bytes.map { |b| b.to_s(16) }.join.rjust(length * 2, '0')
+    else
+      data = frame_data.to_s(16).rjust(length * 2, '0')
+    end
 
     case kind
     when :standard
