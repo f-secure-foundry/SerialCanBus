@@ -159,6 +159,9 @@ class SerialCanBus
   #   command  Symbol for the command name or request instance
   #   options  command attributes (when command is a Symbol)
   #
+  # return value:
+  #   response   SerialCanBus::Response subclass
+  #
   # available command symbols and request classes:
   #   :acceptance_code (SerialCanBus::Request::AcceptanceCode)
   #   :acceptance_mask (SerialCanBus::Request::AcceptanceMask)
@@ -205,14 +208,13 @@ class SerialCanBus
   #   response = slcan.transmit_frame(:standard, 0x7ff, 2, 0xbeef)
   #
   # arguments:
-  #   kind       Symbol for the frame type
+  #   kind       Symbol for the frame type (:standard or :extended)
   #   length     frame length (0-8)
   #   identifier CAN identifier (11-bit for standard, 29-bit for extended)
   #   data       frame data (e.g. 0x61616161, "aaaa")
   #
-  # available frame kinds:
-  #   :standard
-  #   :extended
+  # return value:
+  #   response   SerialCanBus::Response::Transmit
 
   def transmit_frame(kind = :standard, identifier = 0, length = 0, frame_data = 0)
     case frame_data
@@ -241,7 +243,7 @@ class SerialCanBus
 
     @serial.read(1) if RETURN_CODE[response.return_code] == :ok
 
-    response.return_code
+    response
   end
 
   # Wrapper that yields received frames to the invoking block. Returns frame
