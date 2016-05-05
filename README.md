@@ -34,7 +34,7 @@ transmission of standard CAN frame with identifier 0x7ff and 2 bytes of data:
 sniff first 20 frames:
 ```
   slcan.while_receiving(20) do |kind, identifier, length, data|
-    puts "kind #{kind} identifier #{identifier.to_s(16)} data #{data.to_s(16)}"
+    puts "kind #{kind} identifier #{identifier.to_s(16)} data #{data.unpack('H*')}"
   end
 ```
 

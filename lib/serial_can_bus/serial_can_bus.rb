@@ -19,7 +19,7 @@ require 'serialport'
 #
 # sniff first 20 frames:
 #   slcan.while_receiving(20) do |kind, identifier, length, data|
-#     puts "identifier #{identifier.to_s(16)} data #{data.to_s(16)}"
+#     puts "identifier #{identifier.to_s(16)} data #{data.unpack('H*')}"
 #   end
 #
 # get adapter status:
@@ -254,15 +254,17 @@ class SerialCanBus
   #
   # example (inspect data of first 100 received frames):
   #   slcan.while_receiving(100) do |kind, identifier, length, data|
-  #     puts "identifier #{identifier.to_s(16)} data #{data.to_s(16)}"
+  #     puts "identifier #{identifier.to_s(16)} data #{data.unpack('H*')}"
   #   end
   #
   # arguments:
   #   count  frame count (optional)
   #
-  # available frame kinds:
-  #   :standard
-  #   :extended
+  # return values:
+  #   kind       Symbol for the frame type (:standard or :extended)
+  #   identifier CAN identifier (Fixnum)
+  #   length     frame length   (Fixnum)
+  #   data       frame data     (String)
 
   def while_receiving(count = nil, &block)
     n = 0
@@ -287,7 +289,7 @@ class SerialCanBus
 
       next unless length
 
-      data = @serial.read(length * 2).to_i(16)
+      data = @serial.read(length * 2).scan(/../).map { |x| x.to_i(16).chr }.join()
 
       yield [kind, identifier, length, data]
 
