@@ -35,8 +35,10 @@ class SerialCanBus
   # The RETURN CODE hash matches the LAWICEL ASCII protocol values returned by
   # transmit_frame() and certain Response types.
 
-  RETURN_CODE = { :ok    => [0x5a, 0x7a],
-                  :error => [0x07] }
+  RETURN_CODE = { 0x07 => :error,
+                  0x5a => :ok, # Z
+                  0x7a => :ok  # z
+                }
 
   # Standard CAN frame with 11-bit identifier.
 
@@ -204,7 +206,7 @@ class SerialCanBus
 
     response = issue_command(:transmit, { :frame => frame })
 
-    @serial.read(1) if RETURN_CODE[:ok].member?(response.return_code)
+    @serial.read(1) if RETURN_CODE[response.return_code] == :ok
 
     response.return_code
   end
