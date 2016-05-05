@@ -105,7 +105,7 @@ class SerialCanBus
 
     issue_command(:close_channel)
 
-    responses << issue_command(:btr_setup, { :bitrate => bitrate })
+    responses << issue_command(:standard_setup,  { :bitrate => bitrate })
     responses << issue_command(:acceptance_mask, { :mask => mask })
     responses << issue_command(:acceptance_code, { :code => code })
     responses << issue_command(:open_channel)
@@ -154,8 +154,8 @@ class SerialCanBus
         request = command
         response = Response.const_get(request.class.to_s.split('::').last)
       end
-    rescue
-      raise "invalid command: #{command}"
+    rescue Exception => e
+      raise "invalid command: #{command}, #{e.message}"
     end
 
     @serial.write(request)

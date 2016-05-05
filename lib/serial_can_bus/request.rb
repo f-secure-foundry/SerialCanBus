@@ -73,8 +73,17 @@ class SerialCanBus::Request
 
     ##
     # :attr_accessor: value
-    # speed (String, 1 byte)
+    # bitrate (String, 1 bytes), see BITRATE constant and bitrate=() for
+    # automatic conversion from Fixnum
     string :value, 1*8, 'command', :default => BITRATE[125000]
+
+    def bitrate=(bitrate)
+      unless BITRATE[bitrate]
+        raise 'unsupported bitrate'
+      end
+
+      self.value = BITRATE[bitrate]
+    end
   end
 
   # Setup arbitrary CAN bus speeds.
