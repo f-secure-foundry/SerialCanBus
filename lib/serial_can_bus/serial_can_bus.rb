@@ -59,6 +59,20 @@ class SerialCanBus
     # :attr_accessor: data
     # frame data (binary)
     rest   :data
+
+    def errors
+      errors = []
+
+      unless (0..8).include?(dlength.to_i)
+        errors << "invalid length (#{dlength} != 0-8)"
+      end
+
+      if data.size > 8 * 2
+        errors << "excessive data length (#{data.size / 2} > 8)"
+      end
+
+      errors
+    end
   end
 
   # Extended CAN frame with 29-bit identifier.
@@ -80,6 +94,20 @@ class SerialCanBus
     # :attr_accessor: data
     # frame data (binary)
     rest   :data
+
+    def errors
+      errors = []
+
+      unless (0..8).include?(dlength.to_i)
+        errors << "invalid length (#{dlength} != 0-8)"
+      end
+
+      if data.size > 8 * 2
+        errors << "excessive data length (#{data.size / 2} > 8)"
+      end
+
+      errors
+    end
   end
 
   # Initialize the serial adapter. Returns a SerialPort object.
@@ -187,10 +215,6 @@ class SerialCanBus
   #   :extended
 
   def transmit_frame(kind = :standard, identifier = 0, length = 0, frame_data = 0)
-    unless (0..8).include?(length)
-      raise 'invalid length (! 0-8)'
-    end
-
     case frame_data
     when String
       data = frame_data.bytes.map { |b| b.to_s(16) }.join.rjust(length * 2, '0')
@@ -209,7 +233,11 @@ class SerialCanBus
       raise 'invalid frame kind'
     end
 
-    response = issue_command(:transmit, { :frame => frame })
+    if frame.errors.any?
+      raise "invalid frame: #{frame.errors.join("\n")}"
+    else
+      response = issue_command(:transmit, { :frame => frame })
+    end
 
     @serial.read(1) if RETURN_CODE[response.return_code] == :ok
 
