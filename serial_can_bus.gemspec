@@ -20,4 +20,5 @@ interaction with the adapters as long as the serial port is available.'
   s.extra_rdoc_files = ['CHANGELOG', 'LICENSE', 'README.md']
   s.homepage = 'http://dev.inversepath.com/serial_can_bus'
   s.requirements = ['bit-struct', 'serialport']
+  s.licenses = ['ISC']
 end
