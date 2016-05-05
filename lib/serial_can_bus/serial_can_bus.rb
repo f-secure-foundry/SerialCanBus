@@ -219,7 +219,7 @@ class SerialCanBus
   def transmit_frame(kind = :standard, identifier = 0, length = 0, frame_data = 0)
     case frame_data
     when String
-      data = frame_data.bytes.map { |b| b.to_s(16) }.join.rjust(length * 2, '0')
+      data = frame_data.bytes.map { |b| b.to_s(16).rjust(2, '0') }.join.rjust(length * 2, '0')
     else
       data = frame_data.to_s(16).rjust(length * 2, '0')
     end
@@ -283,15 +283,16 @@ class SerialCanBus
         kind = :extended
         identifier = @serial.read(8).to_i(16)
         length = @serial.read(1).to_i(16)
-      when /\r/
+      when /\r/, "\x7f"
         next
       else
-        raise "invalid frame kind: #{kind.inspect}"
+        raise "spurious frame kind value: #{kind.inspect}"
       end
 
       next unless length
 
-      data = @serial.read(length * 2).scan(/../).map { |x| x.to_i(16).chr }.join()
+      data = @serial.read(length * 2)
+      data = data.scan(/../).map { |x| x.to_i(16).chr }.join()
 
       yield [kind, identifier, length, data]
 
