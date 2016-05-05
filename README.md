@@ -50,7 +50,7 @@ Assembled gems can be found at
 http://dev.inversepath.com/download/serial_can_bus
 
 ```
-gem install serial_can_bus-0.3.gem
+gem install serial_can_bus-0.4.gem
 ```
 
 Requirements
