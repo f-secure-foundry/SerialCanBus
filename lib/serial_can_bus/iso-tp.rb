@@ -2,11 +2,12 @@
 #
 # - Examples
 #
-# segments = SerialCanBus::ISOTP.split(payload)
+# build multiple segments from single payload:
+#   segments = SerialCanBus::ISOTP.split(payload)
 #
-# segments.each do |data|
-#  response = slcan.transmit_frame(:standard, 0x7ff, data.size, data)
-# end
+#   segments.each do |data|
+#    response = slcan.transmit_frame(:standard, 0x7ff, data.size, data)
+#   end
 
 class SerialCanBus::ISOTP
 
