@@ -1,3 +1,10 @@
+== 0.4 (20160505)
+
+* add ISO-TP (ISO-15765-2) support
+* improve API documentation
+* change while_receiving returned data from Fixnum to String
+* add string support in frame data transmission
+
 == 0.3 (20160415)
 
 * adjust BtrSetup bitrate table
