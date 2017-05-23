@@ -65,10 +65,11 @@ bit-struct, serialport
 Resources
 =========
 
-The SerialCanBus project page is http://dev.inversepath.com/serial_can_bus
+The SerialCanBus repository is https://github.com/inversepath/SerialCanBus
 
-Documentation can be accessed at http://dev.inversepath.com/serial_can_bus/doc
-or using the Ruby Index (ri) tool (e.g. ri SerialCanBus.transmit_frame)
+Automatically generated documentation can be found at
+http://rubydoc.info/github/inversepath/SerialCanBus/master
+or using the Ruby Index (ri) tool (e.g. `ri SerialCanBus.transmit_frame`)
 
 Please report support and feature requests to <andrea@inversepath.com>
 

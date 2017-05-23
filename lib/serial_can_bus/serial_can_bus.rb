@@ -25,7 +25,7 @@ require 'serialport'
 # get adapter status:
 #   puts slcan.issue_command(:status_flag).dump
 #
-# Andrea Barisani <andrea@inversepath.com> | dev.inversepath.com/serial_can_bus
+# Andrea Barisani <andrea@inversepath.com> | github.com/inversepath/SerialCanBus
 
 class SerialCanBus
 

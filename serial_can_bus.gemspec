@@ -19,7 +19,7 @@ interaction with the adapters as long as the serial port is available.'
              'lib/serial_can_bus/request.rb', 'lib/serial_can_bus/response.rb',
              'lib/serial_can_bus/iso-tp.rb']
   s.extra_rdoc_files = ['CHANGELOG', 'LICENSE', 'README.md']
-  s.homepage = 'http://dev.inversepath.com/serial_can_bus'
+  s.homepage = 'https://github.com/inversepath/SerialCanBus'
   s.requirements = ['bit-struct', 'serialport']
   s.licenses = ['ISC']
 end
